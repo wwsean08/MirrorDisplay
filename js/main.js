@@ -1,7 +1,7 @@
 /**
  * Created by ssmith on 12/29/15.
  */
-var ws = new SockJS('http://127.0.0.1:15674/stomp');
+var ws = new SockJS('http://' + window.location.hostname + ':15674/stomp');
 var client = Stomp.over(ws);
 
 // SockJS does not support heart-beat: disable heart-beats
