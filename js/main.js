@@ -75,19 +75,26 @@ var on_error =  function() {
 
 client.connect(user, pass, on_connect, on_error, vhost);
 
+/**
+ * Requests updates from services, only used when the page first loads
+ */
+function request_updates() {
+    client.send("/topic/weather_update");
+    client.send("/topic/stock_update");
+}
+
 function display_c(){
     setTimeout('display_ct()',time_refresh);
 }
 
 function display_ct() {
-    var x = new Date();
-    var x1=x.getMonth() + "/" + x.getDate() + "/" + x.getYear();
-    x1 = x1 + " - " + x.getHours() + ":" + x.getMinutes();
-    $('#time').text(x1);
+    time = moment(new Date()).format('llll');
+    $('#time').text(time);
 
     display_c();
 }
 
 window.onload = function() {
     display_ct();
+    request_updates();
 };
