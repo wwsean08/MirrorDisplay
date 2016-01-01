@@ -17,7 +17,7 @@ client.heartbeat.incoming = 0;
  * TODO: Determine data structure and parse it to make it pretty
  * @param data
  */
-var on_message_weather = function(data) {
+var on_message_weather = function (data) {
     var content = $('#weather');
     content.text(data);
 }
@@ -26,7 +26,7 @@ var on_message_weather = function(data) {
  * When a message is sent to this it means that an updated version of the
  * application has been downloaded, refresh the page
  */
-var on_message_update = function() {
+var on_message_update = function () {
     window.location.reload();
 }
 
@@ -34,7 +34,7 @@ var on_message_update = function() {
  * A message......message has been sent, display it
  * @param data
  */
-var on_message_msg = function(data) {
+var on_message_msg = function (data) {
     var content = $('#message');
     content.text(data);
 }
@@ -44,7 +44,7 @@ var on_message_msg = function(data) {
  * TODO: Determine data structure and parse it to make it pretty
  * @param data
  */
-var on_message_stock = function(data) {
+var on_message_stock = function (data) {
     var content = $('#weather');
     content.text(data);
 }
@@ -54,7 +54,7 @@ var on_message_stock = function(data) {
  * Connect to RabbitMQ to get weather updates
  * @param x
  */
-var on_connect = function(x) {
+var on_connect = function (x) {
     client.subscribe("/topic/weather", function (d) {
         on_message_weather(d.body);
     });
@@ -69,22 +69,19 @@ var on_connect = function(x) {
     });
 };
 
-var on_error =  function() {
+var on_error = function () {
     console.log('error');
 };
-
-client.connect(user, pass, on_connect, on_error, vhost);
 
 /**
  * Requests updates from services, only used when the page first loads
  */
 function request_updates() {
-    client.send("/topic/weather_update");
-    client.send("/topic/stock_update");
+    client.send("/topic/update", {"content-type": "text/plain"}, "test");
 }
 
-function display_c(){
-    setTimeout('display_ct()',time_refresh);
+function display_c() {
+    setTimeout('display_ct()', time_refresh);
 }
 
 function display_ct() {
@@ -94,7 +91,9 @@ function display_ct() {
     display_c();
 }
 
-window.onload = function() {
+$(window).load(function () {
+    client.connect(user, pass, on_connect, on_error, vhost);
     display_ct();
-    request_updates();
-};
+    //setTimeout is a hack to make sure that the connection is established
+    setTimeout('request_updates()', 10000);
+});
