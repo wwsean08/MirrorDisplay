@@ -18,8 +18,12 @@ client.heartbeat.incoming = 0;
  * @param data
  */
 var on_message_weather = function (data) {
-    var content = $('#weather');
-    content.text(data);
+    obj = JSON.parse(data);
+    updateTime = new Date(obj.timestamp);
+    $('#temperature').text(obj.temperature);
+    $('#location').text(obj.location);
+    $('#updatedAt').text(moment(updateTime).format('llll'));
+    $('#icon').attr("src", obj.icon);
 }
 
 /**
