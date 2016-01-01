@@ -1,4 +1,18 @@
 body {
     background: black;
     color: white;
+    height: 100%;
+}
+
+#time {
+    text-align: center;
+    font-size: xx-large;
+}
+
+#message {
+    text-align: center;
+    font-size: x-large;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }

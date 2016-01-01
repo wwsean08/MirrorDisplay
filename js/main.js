@@ -20,9 +20,9 @@ client.heartbeat.incoming = 0;
 var on_message_weather = function (data) {
     obj = JSON.parse(data);
     updateTime = new Date(obj.timestamp);
-    $('#temperature').text(obj.temperature);
+    $('#temperature').text(obj.temperature + "°");
     $('#location').text(obj.location);
-    $('#updatedAt').text(moment(updateTime).format('llll'));
+    $('#updatedAt').text('Last updated at ' + moment(updateTime).format('LT'));
     $('#icon').attr("src", obj.icon);
 }
 
@@ -99,5 +99,5 @@ $(window).load(function () {
     client.connect(user, pass, on_connect, on_error, vhost);
     display_ct();
     //setTimeout is a hack to make sure that the connection is established
-    setTimeout('request_updates()', 10000);
+    setTimeout('request_updates()', 3000);
 });
