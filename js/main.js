@@ -48,9 +48,12 @@ var on_message_msg = function (data) {
  * TODO: Determine data structure and parse it to make it pretty
  * @param data
  */
-var on_message_stock = function (data) {
-    var content = $('#weather');
-    content.text(data);
+var on_message_irc = function (data) {
+    var content = $('#irc');
+    obj = JSON.parse(data);
+    updateTime = new Date(obj.timestamp);
+    var display = '[' + moment(updateTime).format('LT') +'] ' + obj.username + ': ' + obj.message;
+    content.text(display);
 }
 
 
@@ -68,8 +71,8 @@ var on_connect = function (x) {
     client.subscribe("/topic/upgrade", function (_) {
         on_message_update();
     });
-    client.subscribe("/topic/stock", function (d) {
-        on_message_stock(d.body);
+    client.subscribe("/topic/irc", function (d) {
+        on_message_irc(d.body);
     });
 };
 

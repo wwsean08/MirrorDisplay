@@ -2,11 +2,20 @@ body {
     background: black;
     color: white;
     height: 100%;
+    font-size: x-large;
+}
+
+p {
+    line-height: 70%
 }
 
 #time {
     text-align: center;
     font-size: xx-large;
+}
+
+#weather {
+    width: 30%
 }
 
 #message {
@@ -15,4 +24,14 @@ body {
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+#temperature {
+    font-size: xx-large;
+}
+
+#irc {
+    float: right;
+    width: 30%;
+    text-align: left;
 }
