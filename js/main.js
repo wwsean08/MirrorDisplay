@@ -84,7 +84,7 @@ var on_error = function () {
  * Requests updates from services, only used when the page first loads
  */
 function request_updates() {
-    client.send("/topic/update", {"content-type": "text/plain"}, "test");
+    client.send("/topic/update");
 }
 
 function display_c() {
