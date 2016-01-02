@@ -35,3 +35,7 @@ p {
     width: 30%;
     text-align: left;
 }
+
+#irc p {
+    line-height: 90%
+}

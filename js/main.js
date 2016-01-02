@@ -53,7 +53,13 @@ var on_message_irc = function (data) {
     obj = JSON.parse(data);
     updateTime = new Date(obj.timestamp);
     var display = '[' + moment(updateTime).format('LT') +'] ' + obj.username + ': ' + obj.message;
-    content.text(display);
+    var messageCount = $('#irc p').length;
+    if (messageCount == 5) {
+        var childToRemove = $('#irc p:first');
+        childToRemove.remove();
+    }
+    var newMessage = $('<p></p>').text(display);
+    newMessage.appendTo(content);
 }
 
 
