@@ -14,7 +14,9 @@ p {
     font-size: xx-large;
 }
 
-#weather {
+#left {
+    position: fixed;
+    left: 0;
     width: 30%
 }
 
@@ -31,11 +33,20 @@ p {
 }
 
 #irc {
-    float: right;
+    position: fixed;
+    right: 0;
     width: 30%;
     text-align: left;
 }
 
 #irc p {
     line-height: 90%
+}
+
+.up {
+    color: green;
+}
+
+.down {
+    color: red;
 }

@@ -45,13 +45,12 @@ var on_message_msg = function (data) {
 
 /**
  * A weather message has been sent, parse and display it
- * TODO: Determine data structure and parse it to make it pretty
  * @param data
  */
 var on_message_irc = function (data) {
     var content = $('#irc');
-    obj = JSON.parse(data);
-    updateTime = new Date(obj.timestamp);
+    var obj = JSON.parse(data);
+    var updateTime = new Date(obj.timestamp);
     var display = '[' + moment(updateTime).format('LT') +'] ' + obj.username + ': ' + obj.message;
     var messageCount = $('#irc p').length;
     if (messageCount == 5) {
@@ -62,6 +61,37 @@ var on_message_irc = function (data) {
     newMessage.appendTo(content);
 }
 
+/**
+ * Generate the html based on the JSON input, would be better to use a template
+ * engine but meh
+ * @param data
+ */
+var on_message_stock = function (data) {
+    var obj = JSON.parse(data);
+    var stockArray = obj.stockData;
+    console.log(stockArray);
+    var stockContainer = $('#stocks');
+    stockContainer.empty();
+    for (var i = 0; i < stockArray.length; i++) {
+        var stock = stockArray[i];
+        var stockClass = stock.change > 0.00 ? 'up' : 'down';
+        var stockDiv = $('<div></div>');
+        var nameP = $('<p></p>').text(stock.name + ' - ' + stock.symbol + ' - $' + stock.price);
+        var priceP = $('<p></p>').text('$' + stock.change);
+        if(stockClass == 'down') {
+            priceP = $('<p></p>').text('-$' + Math.abs(stock.change));
+        }
+        var percentP = $('<p></p>').text(stock.changePercent.toFixed(2) + '%');
+        priceP.attr("class", stockClass);
+        percentP.attr("class", stockClass);
+
+        nameP.appendTo(stockDiv);
+        priceP.appendTo(stockDiv);
+        percentP.appendTo(stockDiv);
+        stockDiv.appendTo(stockContainer);
+    }
+
+}
 
 /**
  * Connect to RabbitMQ to get weather updates
@@ -79,6 +109,9 @@ var on_connect = function (x) {
     });
     client.subscribe("/topic/irc", function (d) {
         on_message_irc(d.body);
+    });
+    client.subscribe("/topic/stock", function (d) {
+        on_message_stock(d.body);
     });
 };
 
