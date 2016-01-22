@@ -95,8 +95,8 @@ var on_message_stock = function (data) {
         var stock = stockArray[i];
         var stockClass = stock.change > 0.00 ? 'up' : 'down';
         var stockDiv = $('<div></div>');
-        var nameP = $('<p></p>').text(stock.name + ' - ' + stock.symbol + ' - $' + stock.price);
-        var priceP = $('<p></p>').text('$' + stock.change);
+        var nameP = $('<p></p>').text(stock.name + ' - ' + stock.symbol + ' - $' + stock.price.toFixed(2));
+        var priceP = $('<p></p>').text('$' + stock.change.toFixed(2));
         if(stockClass == 'down') {
             priceP = $('<p></p>').text('-$' + Math.abs(stock.change));
         }
