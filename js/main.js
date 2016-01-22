@@ -35,6 +35,25 @@ var on_message_update = function () {
 }
 
 /**
+ * When a message is sent to this it means that the page should have it's
+ * brightness adjusted.  I am doing the if statements to prevent random garbage
+ * from being sent and set as the class (for example up)
+ */
+var on_message_display = function (data) {
+    var body = $('body');
+    if (data === 'bright') {
+        body.removeClass().addClass('bright');
+
+    }
+    else if (data === 'dim') {
+        body.removeClass().addClass('dim')
+    }
+    else if (data === 'off') {
+        body.removeClass().addClass('off')
+    }
+}
+
+/**
  * A message......message has been sent, display it
  * @param data
  */
@@ -112,6 +131,9 @@ var on_connect = function (x) {
     });
     client.subscribe("/topic/stock", function (d) {
         on_message_stock(d.body);
+    });
+    client.subscribe("/topic/displayControls", function (d) {
+        on_message_display(d.body);
     });
 };
 
