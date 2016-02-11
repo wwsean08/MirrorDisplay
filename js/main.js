@@ -3,8 +3,8 @@
  */
 var ws = new SockJS('http://' + window.location.hostname + ':15674/stomp');
 var client = Stomp.over(ws);
-var user = 'guest';
-var pass = 'guest';
+var user = 'admin';
+var pass = 'admin';
 var vhost = '/';
 var time_refresh = 1000;
 

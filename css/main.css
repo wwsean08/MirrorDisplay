@@ -18,7 +18,7 @@ body {
 }
 
 p {
-    line-height: 70%
+    line-height: 90%
 }
 
 #time {
@@ -38,6 +38,7 @@ p {
     position: fixed;
     bottom: 0;
     width: 100%;
+    height: 5em;
 }
 
 #temperature {
@@ -47,7 +48,7 @@ p {
 #irc {
     position: fixed;
     right: 0;
-    width: 30%;
+    width: 40%;
     text-align: left;
 }
 
