@@ -14,6 +14,7 @@ The following installation instructions assume you have Raspbian Jessie installe
    * Enable the webstomp plugin with the following commands:
     ```bash
     sudo rabbitmq-plugins enable rabbitmq_web_stomp
+    sudo rabbitmq-plugins enable rabbitmq_management
     sudo /etc/init.d/rabbitmq-server restart
     ```
    * Add an admin user through the web console as the default guest user only can be accessed via localhost, this can make debugging from a machine other than the raspberry pi very difficult.  The admin console is located at <IP>:15672 and the default credentials are guest/guest.
