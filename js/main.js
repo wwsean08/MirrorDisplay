@@ -60,6 +60,10 @@ var on_message_display = function (data) {
 var on_message_msg = function (data) {
     var content = $('#message');
     content.text(data);
+    //We can store data so let's store it
+    if(typeof(Storage) !== 'undefined') {
+        localStorage.setItem('message', data);
+    }
 }
 
 /**
@@ -162,6 +166,13 @@ function display_ct() {
 $(window).load(function () {
     client.connect(user, pass, on_connect, on_error, vhost);
     display_ct();
+    if(typeof(Storage) !== 'undefined') {
+        //check if we have a message and display it if we do.
+        if(localStorage.message) {
+            var content = $('#message');
+            content.text(localStorage.getItem('message'));
+        }
+    }
     //setTimeout is a hack to make sure that the connection is established
     setTimeout('request_updates()', 3000);
 });
