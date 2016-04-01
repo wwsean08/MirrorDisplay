@@ -21,6 +21,10 @@ p {
     line-height: 90%
 }
 
+#icon {
+    font-size: 300%;
+}
+
 #time {
     text-align: center;
     font-size: xx-large;

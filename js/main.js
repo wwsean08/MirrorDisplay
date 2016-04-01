@@ -23,7 +23,7 @@ var on_message_weather = function (data) {
     $('#temperature').text(obj.temperature + "°");
     $('#location').text(obj.location);
     $('#updatedAt').text('Last updated at ' + moment(updateTime).format('LT'));
-    $('#icon').attr("src", obj.icon);
+    $('#icon').removeClass().addClass('wi').addClass(obj.icon);
 }
 
 /**
